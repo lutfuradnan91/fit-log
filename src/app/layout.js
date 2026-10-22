@@ -1,16 +1,37 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
-title: "FitLog | Workout Library",
-description:
-"Choose workouts, build your daily plan, and track your fitness routine.",
+  title: "FitLog | Workout Library",
+  description:
+    "Choose workouts, build your daily plan, and track your fitness routine.",
 };
 
 export default function RootLayout({ children }) {
-return ( <html lang="en"><body><Navbar />{children}<Footer /><ToastContainer position="top-right" autoClose={2500} /></body></html>
-);
+  return (
+    <html lang="en">
+      <body>
+        <Suspense
+          fallback={
+            <div className="h-20 bg-black" />
+          }
+        >
+          <Navbar />
+        </Suspense>
+
+        {children}
+
+        <Footer />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+        />
+      </body>
+    </html>
+  );
 }
