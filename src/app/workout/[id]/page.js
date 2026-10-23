@@ -34,6 +34,7 @@ function WorkoutDetailsContent() {
                 const result = await response.json();
 
                 const data = result.data ?? result.workout ?? result;
+                console.log("Workout details API data:", data);
 
                 if (!data || typeof data !== "object" || Array.isArray(data)) {
                     throw new Error("Invalid workout data.");
@@ -86,7 +87,7 @@ function WorkoutDetailsContent() {
     const equipment = workout.equipment ?? "Not specified";
     const difficulty = workout.difficulty ?? "Not specified";
     const duration = workout.duration ?? "N/A";
-    const calories = workout.calories ?? "N/A";
+    const calories = workout.caloriesBurned ?? "N/A";
     const rating = workout.rating ?? "N/A";
     const sets = workout.sets ?? "N/A";
     const reps = workout.reps ?? "N/A";

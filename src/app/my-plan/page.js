@@ -61,7 +61,7 @@ const totalMinutes = plan.reduce(
 );
 
 const totalCalories = plan.reduce(
-(total, workout) => total + Number(workout.calories ?? 0),
+(total, workout) => total + Number(workout.caloriesBurned ??workout.calories ?? 0),
 0
 );
 
@@ -308,7 +308,7 @@ Your Fitness Journey </p>
       </section>
     ) : (
       /* Empty State */
-      
+
       <section className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 px-5 py-12 text-center">
         <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-lime-400/10 text-3xl text-lime-400">
           {search ? "⌕" : "＋"}
