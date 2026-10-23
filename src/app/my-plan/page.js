@@ -58,6 +58,22 @@ function MyPlanContent() {
   return (
     <main className="min-h-screen bg-black px-4 py-8 text-white sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
+
+    {/* Page Title and Subtitle */}
+    <section className="mb-8">
+      
+      <h1 className="text-3xl font-black tracking-wide text-white sm:text-4xl">
+        MY PLAN
+      </h1>
+
+      <p className="mt-2 text-sm leading-relaxed text-[#9299A7] sm:text-base">
+        Cap of five lifts for today. Finish them, then load more.
+      </p>
+    </section>
+
+
+
+
         {/* Summary */}
 
         <section className="mb-10 grid grid-cols-3 gap-3 rounded-2xl border border-white/10 bg-[#292c32] px-4 py-5 sm:gap-6 sm:px-8 sm:py-6">

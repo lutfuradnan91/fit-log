@@ -15,16 +15,20 @@ const Navbar = () => {
     setMounted(true);
   }, []);
 
-  const isWorkoutPage = pathname === "/";
-  const isPlanPage = pathname === "/my-plan";
+  const isWorkoutPage = pathname === "/" || pathname.startsWith("/workout");
+const isPlanPage = pathname.startsWith("/my-plan");
 
   const planCount = mounted && hydrated ? plan.length : 0;
   const savedCount = mounted && hydrated ? saved.length : 0;
 
 
 
-  const navLinkClass = () =>
-    "rounded-full bg-[#9CA3AF] px-4 py-1.5 text-sm font-medium !text-white transition-colors duration-200 hover:!text-[#C2F800]";
+  const navLinkClass = (isActive) =>
+  `rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${
+    isActive
+      ? "bg-[#1a2312] font-semibold !text-[#C2F800]"
+      : "!text-white hover:!text-[#C2F800]"
+  }`;
 
 
 

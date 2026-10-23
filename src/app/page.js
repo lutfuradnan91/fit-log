@@ -46,7 +46,9 @@ export default function Home() {
   }, []);
 
   return (<main className="min-h-screen bg-[#0c0d10] text-white">
-    {/* Hero */} <section className="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-8 px-5 pb-12 pt-8 sm:px-8 md:grid-cols-[1.5fr_0.7fr] md:px-10 md:pb-14 md:pt-8"> <div className="rounded-xl border border-[#252832] bg-[#15171d] px-6 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14"> <p className="mb-5 text-[11px] font-extrabold tracking-[0.12em] text-[#ccff00]">
+    {/* Hero */} 
+   <section className="mx-5 mb-12 grid grid-cols-1 items-center gap-8 rounded-2xl border border-[#252832] bg-[#15171d] p-6 sm:mx-8 sm:mb-14 sm:p-8 md:mx-auto md:max-w-[1360px] md:grid-cols-[1.5fr_0.7fr] md:p-10 lg:p-12">
+      <div className="px-0 py-6 sm:py-8 lg:py-10"> <p className="mb-5 text-[11px] font-extrabold tracking-[0.12em] text-[#ccff00]">
       WORKOUT LIBRARY </p>
 
 
