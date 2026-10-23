@@ -1,7 +1,8 @@
 "use client";
 
 import {
-    createContext,useContext,useEffect,useState,} from "react";
+    createContext, useContext, useEffect, useState,
+} from "react";
 
 import { toast } from "react-toastify";
 
@@ -17,47 +18,37 @@ export function FitLogProvider({ children }) {
     const [hydrated, setHydrated] = useState(false);
 
     // Load saved data
+
     useEffect(() => {
-        try {
-            const storedData = localStorage.getItem(STORAGE_KEY);
+        try { const storedData = localStorage.getItem(STORAGE_KEY);
 
-            
-  if (storedData) {
-    const parsedData = JSON.parse(storedData);
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
 
-    setPlan(Array.isArray(parsedData.plan) ? parsedData.plan : []);
-    setSaved(Array.isArray(parsedData.saved) ? parsedData.saved : []);
-    setCompleted(Array.isArray(parsedData.completed)
-        ? parsedData.completed
-        : []
-    );
-  }
-} catch (error) {
-  console.error("Unable to load FitLog data:", error);
-} finally {
-  setHydrated(true);
-}
+                setPlan(Array.isArray(parsedData.plan) ? parsedData.plan : []);
+                setSaved(Array.isArray(parsedData.saved) ? parsedData.saved : []);
+                setCompleted(Array.isArray(parsedData.completed) ? parsedData.completed: []);
+            }
+        } catch (error) {
+            console.error("Unable to load FitLog data:", error);
+        } finally {
+            setHydrated(true);
+        }
 
 
-        }, []);
+    }, []);
 
-    
+
     useEffect(() => {
         if (!hydrated) return;
 
-        
-try {
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({
-      plan,
-      saved,
-      completed,
-    })
-  );
-} catch (error) {
-  console.error("Unable to save FitLog data:", error);
-}
+
+        try {
+            localStorage.setItem( STORAGE_KEY,JSON.stringify({plan,saved,completed,})
+            );
+        } catch (error) {
+            console.error("Unable to save FitLog data:", error);
+        }
 
 
     }, [plan, saved, completed, hydrated]);
@@ -70,20 +61,19 @@ try {
             return;
         }
 
-        
-if (plan.some((item) => String(item.id) === String(workout.id))) {
-  toast.info("This workout is already in your plan.");
-  return;
-}
 
-if (plan.length >= MAX_PLAN_WORKOUTS) {
-  toast.warning("Your daily plan can contain only 5 workouts.");
-  return;
-}
+        if (plan.some((item) => String(item.id) === String(workout.id))) {
+            toast.info("This workout is already in your plan.");
+            return;
+        }
 
-setPlan((currentPlan) => [...currentPlan, workout]);
-toast.success("Workout added to today's plan!");
+        if (plan.length >= MAX_PLAN_WORKOUTS) {
+            toast.warning("Your daily plan can contain only 5 workouts.");
+            return;
+        }
 
+        setPlan((currentPlan) => [...currentPlan, workout]);
+        toast.success("Workout added to today's plan!");
 
     };
 
@@ -95,15 +85,14 @@ toast.success("Workout added to today's plan!");
             return;
         }
 
-        
-if (saved.some((item) => String(item.id) === String(workout.id))) {
-  toast.info("This workout is already saved.");
-  return;
-}
 
-setSaved((currentSaved) => [...currentSaved, workout]);
-toast.success("Workout saved for later!");
+        if (saved.some((item) => String(item.id) === String(workout.id))) {
+            toast.info("This workout is already saved.");
+            return;
+        }
 
+        setSaved((currentSaved) => [...currentSaved, workout]);
+        toast.success("Workout saved for later!");
 
     };
 
@@ -114,13 +103,12 @@ toast.success("Workout saved for later!");
             currentPlan.filter((item) => String(item.id) !== String(id))
         );
 
-        
-setCompleted((currentCompleted) =>
-  currentCompleted.filter((itemId) => String(itemId) !== String(id))
-);
 
-toast.success("Workout removed from today's plan.");
+        setCompleted((currentCompleted) =>
+            currentCompleted.filter((itemId) => String(itemId) !== String(id))
+        );
 
+        toast.success("Workout removed from today's plan.");
 
     };
 
@@ -131,9 +119,7 @@ toast.success("Workout removed from today's plan.");
             currentSaved.filter((item) => String(item.id) !== String(id))
         );
 
-        
-toast.success("Saved workout removed.");
-
+        toast.success("Saved workout removed.");
 
     };
 
@@ -144,34 +130,22 @@ toast.success("Saved workout removed.");
             return;
         }
 
-        
-if (completed.some((itemId) => String(itemId) === String(id))) {
-  toast.info("Workout is already completed.");
-  return;
-}
 
-setCompleted((currentCompleted) => [
-  ...currentCompleted,
-  id,
-]);
+        if (completed.some((itemId) => String(itemId) === String(id))) {
+            toast.info("Workout is already completed.");
+            return;
+        }
 
-toast.success("Workout completed! Great job!");
+        setCompleted((currentCompleted) => [
+            ...currentCompleted,id,]);
+
+        toast.success("Workout completed! Great job!");
 
 
     };
 
-    const value = {
-        plan,
-        saved,
-        completed,
-        hydrated,
-        addToPlan,
-        saveForLater,
-        removeFromPlan,
-        removeSaved,
-        markAsDone,
-        maxPlanWorkouts: MAX_PLAN_WORKOUTS,
-    };
+    const value = {plan, saved,completed, hydrated,addToPlan,saveForLater,removeFromPlan, removeSaved,markAsDone,
+        maxPlanWorkouts: MAX_PLAN_WORKOUTS, };
 
     return (
         <FitLogContext.Provider value={value}>

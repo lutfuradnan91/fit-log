@@ -8,97 +8,90 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { plan, saved, hydrated } = useFitLog();
+  const [mounted, setMounted] = useState(false);
 
- const { plan, saved, hydrated } = useFitLog();
-
- const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {setMounted(true);
-    
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   const isWorkoutPage = pathname === "/";
   const isPlanPage = pathname === "/my-plan";
 
+  const planCount = mounted && hydrated ? plan.length : 0;
+  const savedCount = mounted && hydrated ? saved.length : 0;
+
+
+
+  const navLinkClass = () =>
+    "rounded-full bg-[#9CA3AF] px-4 py-1.5 text-sm font-medium !text-white transition-colors duration-200 hover:!text-[#C2F800]";
+
+
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black">
-      <div className="navbar mx-auto min-h-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <div className="navbar-start">
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/logo.png"
-              alt="FitLog logo"
-              width={42}
-              height={42}
-              priority
-              className="h-10 w-10 object-contain"
-            />
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0a0f]">
+      <div className="mx-auto grid h-20 max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center px-6">
 
-            <span className="text-xl font-black tracking-wider text-white">
-              FIT<span className="text-lime-400">LOG</span>
-            </span>
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-2 justify-self-start">
+          <Image
+            src="/logo.png"
+            alt="FitLog logo"
+            width={28}
+            height={28}
+            priority
+            className="h-7 w-7 object-contain"
+          />
+          <span className="text-lg font-bold uppercase tracking-wider text-white">
+            FitLog
+          </span>
+        </Link>
 
-        {/* Navigation links */}
-        <nav className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal items-center gap-2 px-1">
+        {/* Links - center  */}
+
+        <nav className="hidden md:block">
+          <ul className="flex items-center gap-2">
             <li>
-              <Link
-                href="/" className={`font-bold uppercase tracking-wider ${isWorkoutPage ? "bg-lime-400 text-black hover:bg-lime-300"
-                    : "text-gray-300 hover:bg-white/10 hover:text-white"
-                  }`}
-              >Workout</Link>
+              <Link href="/" className={navLinkClass(isWorkoutPage)}>
+                Workouts
+              </Link>
             </li>
-
             <li>
-              <Link
-                href="/my-plan" className={`font-bold uppercase tracking-wider ${isPlanPage ? "bg-lime-400 text-black hover:bg-lime-300"
-                    : "text-gray-300 hover:bg-white/10 hover:text-white"
-                  }`}
-              >My Plan
+              <Link href="/my-plan" className={navLinkClass(isPlanPage)}>
+                My Plan
               </Link>
             </li>
           </ul>
         </nav>
 
-        {/* Plan and Saved counters */}
+        {/* Badges - right */}
 
-        <div className="navbar-end gap-2">
-          <Link href="/my-plan"
-            className="flex items-center gap-2 rounded-full bg-lime-400 px-3 py-2 text-xs font-black text-black transition hover:bg-lime-300 sm:px-4 sm:text-sm"
-          >
+        <div className="col-start-3 flex items-center gap-3 justify-self-end">
+          {/* Plan badge: accent filled circle counter */}
+          <Link href="/my-plan" className="flex items-center gap-2 text-sm text-white transition hover:text-[#ccff00]" >
             Plan
-
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-xs text-lime-400">
-             {mounted && hydrated ? plan.length : 0}
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ccff00] px-1 text-xs font-bold text-black">
+              {planCount}
             </span>
           </Link>
 
-          <Link
-            href="/my-plan?tab=saved"
-            className="flex items-center gap-2 rounded-full border border-white/30 px-3 py-2 text-xs font-bold text-white transition hover:border-lime-400 sm:px-4 sm:text-sm"
+          {/* Saved badge: outlined counter */}
+
+          <Link href="/my-plan?tab=saved"
+            className="flex items-center gap-2 text-sm text-gray-300 transition hover:text-white"
           >
             Saved
-
-            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-white/10 px-1 text-xs">
-             {mounted && hydrated ? saved.length : 0}
-            </span>
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-white/30 px-1 text-xs text-white">
+              {savedCount} </span>
           </Link>
         </div>
       </div>
 
       {/* Mobile navigation */}
 
-      <div className="flex justify-center gap-3 border-t border-white/10 px-4 py-2 md:hidden">
-        <Link href="/" className={`rounded-md px-4 py-2 text-sm font-bold ${isWorkoutPage
-          ? "bg-lime-400 text-black" : "text-gray-300 hover:bg-white/10"
-          }`} >Workout</Link>
-
-        <Link href="/my-plan" className={`rounded-md px-4 py-2 text-sm font-bold ${isPlanPage ? "bg-lime-400 text-black" : "text-gray-300 hover:bg-white/10"
-          }`}>My Plan</Link>
-      </div>
+      <nav className="flex justify-center gap-3 border-t border-white/10 px-4 py-2 md:hidden">
+        <Link href="/" className={navLinkClass(isWorkoutPage)}>Workouts</Link>
+        <Link href="/my-plan" className={navLinkClass(isPlanPage)}>My Plan</Link>
+      </nav>
     </header>
   );
 };
