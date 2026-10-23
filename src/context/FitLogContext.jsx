@@ -1,11 +1,7 @@
 "use client";
 
 import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
+    createContext,useContext,useEffect,useState,} from "react";
 
 import { toast } from "react-toastify";
 
@@ -142,7 +138,7 @@ toast.success("Saved workout removed.");
     };
 
     // Mark a planned workout as completed
-    
+
     const markAsDone = (id) => {
         if (!plan.some((item) => String(item.id) === String(id))) {
             return;

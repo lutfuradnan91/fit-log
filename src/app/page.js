@@ -73,16 +73,16 @@ export default function Home() {
         </div>
 
         {/* Hero Image */}
-<div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 sm:aspect-[16/10] md:aspect-[4/5] lg:aspect-[5/4]">
-  <Image
-    src="/banner.png"
-    alt="FitLog workout banner"
-    fill
-    priority
-    sizes="(max-width: 768px) 100vw, 50vw"
-    className="object-contain"
-  />
-</div>
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 sm:aspect-[16/10] md:aspect-[4/5] lg:aspect-[5/4]">
+          <Image
+            src="/banner.png"
+            alt="FitLog workout banner"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain"
+          />
+        </div>
 
       </section>
 
@@ -145,9 +145,12 @@ export default function Home() {
                 {/* Workout Image */}
                 <div className="flex h-48 items-center justify-center bg-zinc-900">
                   {workout.image ? (
-                    <img
+                    <Image
                       src={workout.image}
                       alt={workout.name ?? "Workout"}
+                      width={400}
+                      height={300}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="h-full w-full object-cover"
                     />
                   ) : (
@@ -160,9 +163,7 @@ export default function Home() {
                 {/* Workout Information */}
                 <div className="p-5">
                   <p className="mb-3 text-xs font-bold uppercase tracking-widest text-lime-400">
-                    {workout.category ??
-                      workout.muscleGroup ??
-                      "WORKOUT"}
+                    {workout.category ?? workout.muscleGroup ?? "WORKOUT"}
                   </p>
 
                   <h3 className="text-xl font-black">
@@ -170,8 +171,7 @@ export default function Home() {
                   </h3>
 
                   <p className="mt-3 line-clamp-3 text-sm leading-6 text-gray-400">
-                    {workout.description ??
-                      "Explore this workout and add it to your plan."}
+                    {workout.description ?? "Explore this workout and add it to your plan."}
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-3 text-sm text-gray-300">
